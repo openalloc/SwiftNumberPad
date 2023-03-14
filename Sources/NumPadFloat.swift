@@ -25,9 +25,9 @@ public final class NumPadFloat<T>: NumPadBase<T>
     // MARK: - parameters
 
     @Published private(set) var sValue: String
-    internal let precision: Int
+    public let precision: Int
     internal let formatter: NumberFormatter
-    internal let upperBound: T
+    public let upperBound: T
 
     public init(_ dvalue: T,
                 precision: Int = NumPad.defaultPrecision,
@@ -63,7 +63,7 @@ public final class NumPadFloat<T>: NumPadBase<T>
         toValue(sValue)
     }
 
-    override var isClear: Bool {
+    override public var isClear: Bool {
         sValue == "0"
     }
 

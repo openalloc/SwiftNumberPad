@@ -26,7 +26,7 @@ public final class NumPadInt<T>: NumPadBase<T>
 
     @Published private(set) var sValue: String
     internal let formatter: NumberFormatter
-    internal let upperBound: T
+    public let upperBound: T
 
     public init(_ iValue: T,
                 upperBound: T = T.max)
@@ -60,7 +60,7 @@ public final class NumPadInt<T>: NumPadBase<T>
         toValue(sValue)
     }
 
-    override var isClear: Bool {
+    override public var isClear: Bool {
         sValue == "0"
     }
 

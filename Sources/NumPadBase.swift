@@ -53,11 +53,11 @@ public enum NumPad: Int {
 }
 
 open class NumPadBase<T>: ObservableObject {
-    var stringValue: String { "" }
-    var value: T? { nil }
-    var isClear: Bool { false }
-    func clearAction() {}
-    func digitAction(_: NumPad) -> Bool { false }
-    func backspaceAction() {}
-    func decimalPointAction() -> Bool { false }
+    public var stringValue: String { "" }
+    public var value: T? { nil }
+    public var isClear: Bool { false }
+    public func clearAction() {}
+    public func digitAction(_: NumPad) -> Bool { false }
+    public func backspaceAction() {}
+    public func decimalPointAction() -> Bool { false }
 }
