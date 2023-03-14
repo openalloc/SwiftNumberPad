@@ -298,4 +298,27 @@ class FloatTests: XCTestCase {
         XCTAssertEqual(10, x.value)
         XCTAssertEqual(2, x.currentPrecision)
     }
+    
+    // test to reproduce observed failing behavior
+    func testAddDecimalOnFloat() throws {
+        let x = NumPadFloat(Float(30), precision: 1, upperBound: Float(500))
+        XCTAssertEqual("30", x.stringValue)
+        XCTAssertEqual(30, x.value)
+
+        let d = x.decimalPointAction()
+        XCTAssertTrue(d)
+        XCTAssertEqual("30.", x.stringValue)
+        XCTAssertEqual(30, x.value)
+
+        let r2 = x.digitAction(.d2)
+        XCTAssertTrue(r2)
+        XCTAssertEqual("30.2", x.stringValue)
+        XCTAssertEqual(30.2, x.value)
+    }
+    
+    // test to reproduce observed failing behavior
+    func testToValue() throws {
+        let x = NumPadFloat(Float(0), precision: 1, upperBound: Float(500))
+        XCTAssertEqual(30.2, x.toValue("30.2"))
+    }
 }

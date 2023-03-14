@@ -137,7 +137,7 @@ public struct NumberPad<T>: View {
 
 struct NumberPad_Previews: PreviewProvider {
     struct TestHolder: View {
-        @ObservedObject var dValue: NumPadFloat = .init(2333.23, precision: 2, upperBound: 30000.0)
+        @ObservedObject var dValue: NumPadFloat = .init(Float(30.0), precision: 1, upperBound: Float(500.0))
         @ObservedObject var iValue: NumPadInt = .init(2333, upperBound: 30000)
         var body: some View {
             VStack {

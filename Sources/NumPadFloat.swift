@@ -111,10 +111,9 @@ public final class NumPadFloat<T>: NumPadBase<T>
     // MARK: - Internal Properties/Helpers
 
     internal func toValue(_ str: String) -> T? {
-        guard let val: NSNumber = formatter.number(from: str),
-              let val2: T = val as? T
+        guard let val: NSNumber = formatter.number(from: str)
         else { return nil }
-        return val2
+        return T.init(val.doubleValue)
     }
 
     internal var currentPrecision: Int {
