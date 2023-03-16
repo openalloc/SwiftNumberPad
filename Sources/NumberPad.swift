@@ -24,7 +24,6 @@ public struct NumberPad<T>: View
     @ObservedObject private var config: NPBaseConfig<T>
     private let horizontalSpacing: CGFloat
     private let verticalSpacing: CGFloat
-    private let showDecimalPoint: Bool
     private let onEntry: (NumberPadEnum, Bool) -> Void
 
     // MARK: - Parameters
@@ -32,13 +31,11 @@ public struct NumberPad<T>: View
     public init(config: NPBaseConfig<T>,
                 horizontalSpacing: CGFloat = NumberPadEnum.defaultHorizontalSpacing,
                 verticalSpacing: CGFloat = NumberPadEnum.defaultVerticalSpacing,
-                showDecimalPoint: Bool,
                 onEntry: @escaping (NumberPadEnum, Bool) -> Void = { _, _ in })
     {
         self.config = config
         self.horizontalSpacing = horizontalSpacing
         self.verticalSpacing = verticalSpacing
-        self.showDecimalPoint = showDecimalPoint
         self.onEntry = onEntry
     }
 
@@ -62,7 +59,7 @@ public struct NumberPad<T>: View
                 digit(.d9)
             }
             HStack(spacing: horizontalSpacing) {
-                if showDecimalPoint {
+                if config.showDecimalPoint {
                     decimalPoint
                 } else {
                     blank
@@ -145,23 +142,17 @@ struct NumberPad_Previews: PreviewProvider {
             VStack {
                 Text("\(floatConfig.stringValue)")
 
-                NumberPad(
-                    config: floatConfig,
-                    showDecimalPoint: true
-                )
-                .buttonStyle(.bordered)
-                .font(.title2)
+                NumberPad(config: floatConfig)
+                    .buttonStyle(.bordered)
+                    .font(.title2)
 
                 #if !os(watchOS) // not enough room
                     Divider()
 
                     Text("\(integerConfig.stringValue)")
-                    NumberPad(
-                        config: integerConfig,
-                        showDecimalPoint: false
-                    )
-                    .buttonStyle(.bordered)
-                    .font(.title2)
+                    NumberPad(config: integerConfig)
+                        .buttonStyle(.bordered)
+                        .font(.title2)
                 #endif
             }
         }

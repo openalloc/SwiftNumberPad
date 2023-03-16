@@ -33,7 +33,7 @@ import SwiftUI
             VStack {
                 Text("\(config.stringValue)")
 
-                NumberPad(config: config, showDecimalPoint: true)
+                NumberPad(config: config)
                     .buttonStyle(.bordered)
             }
             .font(.largeTitle)

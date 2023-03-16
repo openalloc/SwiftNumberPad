@@ -50,6 +50,8 @@ public final class NPFloatConfig<T>: NPBaseConfig<T>
 
     // MARK: - Type-specific Actions
 
+    override public var showDecimalPoint: Bool { precision > 0 }
+
     override public func decimalPointAction() -> Bool {
         guard decimalPointIndex == nil else { return false }
         sValue.append(".")
