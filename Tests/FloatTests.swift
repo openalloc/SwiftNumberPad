@@ -22,55 +22,55 @@ import XCTest
 
 class FloatTests: XCTestCase {
     func testNoArgs() throws {
-        let x = NumPadFloat(0.0)
+        let x = NPFloatConfig(0.0)
         XCTAssertEqual("0", x.stringValue)
         XCTAssertEqual(0, x.value)
     }
 
     func testInitZero() throws {
-        let x = NumPadFloat(0)
+        let x = NPFloatConfig(0)
         XCTAssertEqual("0", x.stringValue)
         XCTAssertEqual(0, x.value)
     }
 
     func testInit1() throws {
-        let x = NumPadFloat(1)
+        let x = NPFloatConfig(1)
         XCTAssertEqual("1", x.stringValue)
         XCTAssertEqual(1, x.value)
     }
 
     func testInit1_0() throws {
-        let x = NumPadFloat(1.0)
+        let x = NPFloatConfig(1.0)
         XCTAssertEqual("1", x.stringValue)
         XCTAssertEqual(1, x.value)
     }
 
     func testInit1_1() throws {
-        let x = NumPadFloat(1.1)
+        let x = NPFloatConfig(1.1)
         XCTAssertEqual("1.1", x.stringValue)
         XCTAssertEqual(1.1, x.value)
     }
 
     func testInitBad() throws {
-        let x = NumPadFloat(-1, upperBound: 1)
+        let x = NPFloatConfig(-1, upperBound: 1)
         XCTAssertEqual("0", x.stringValue)
         XCTAssertEqual(0, x.value)
     }
 
     func testValueLargeWithinPrecision() throws {
-        let x = NumPadFloat(2_348_938.93, precision: 2)
+        let x = NPFloatConfig(2_348_938.93, precision: 2)
         XCTAssertEqual("2348938.93", x.stringValue)
         XCTAssertEqual(2_348_938.93, x.value)
     }
 
     func testValueLargeBeyondPrecisionRounds() throws {
-        let x = NumPadFloat(2_348_938.936, precision: 2)
+        let x = NPFloatConfig(2_348_938.936, precision: 2)
         XCTAssertEqual("2348938.94", x.stringValue)
         XCTAssertEqual(2_348_938.94, x.value)
     }
 
     func testBadDigits() throws {
-        let x = NumPadFloat(34.3)
+        let x = NPFloatConfig(34.3)
         let r1 = x.digitAction(.backspace)
         XCTAssertFalse(r1)
         XCTAssertEqual("34.3", x.stringValue)
@@ -83,7 +83,7 @@ class FloatTests: XCTestCase {
     }
 
     func testAddAndRemoveDigits() throws {
-        let x = NumPadFloat(0.0)
+        let x = NPFloatConfig(0.0)
         let r1 = x.digitAction(.d1)
         XCTAssertTrue(r1)
         XCTAssertEqual("1", x.stringValue)
@@ -104,7 +104,7 @@ class FloatTests: XCTestCase {
     }
 
     func testRedundantZero() throws {
-        let x = NumPadFloat(0.0)
+        let x = NPFloatConfig(0.0)
         XCTAssertEqual("0", x.stringValue)
         XCTAssertEqual(0, x.value)
 
@@ -115,7 +115,7 @@ class FloatTests: XCTestCase {
     }
 
     func testAddDigitAndDecimalPoint() throws {
-        let x = NumPadFloat(0.0)
+        let x = NPFloatConfig(0.0)
         let r1 = x.digitAction(.d1)
         XCTAssertTrue(r1)
         XCTAssertEqual("1", x.stringValue)
@@ -133,7 +133,7 @@ class FloatTests: XCTestCase {
     }
 
     func testBackspaceDecimalPoint() throws {
-        let x = NumPadFloat(1.2)
+        let x = NPFloatConfig(1.2)
         XCTAssertEqual("1.2", x.stringValue)
         XCTAssertEqual(1.2, x.value)
 
@@ -151,7 +151,7 @@ class FloatTests: XCTestCase {
     }
 
     func testRedundantBackspace() throws {
-        let x = NumPadFloat(1)
+        let x = NPFloatConfig(1)
         XCTAssertEqual("1", x.stringValue)
         XCTAssertEqual(1, x.value)
 
@@ -165,7 +165,7 @@ class FloatTests: XCTestCase {
     }
 
     func testRedundantAdjacentDecimalPoint() throws {
-        let x = NumPadFloat(0.0)
+        let x = NPFloatConfig(0.0)
         let r = x.digitAction(.d1)
         XCTAssertTrue(r)
         XCTAssertEqual("1", x.stringValue)
@@ -183,7 +183,7 @@ class FloatTests: XCTestCase {
     }
 
     func testRedundantSecondDecimalPoint() throws {
-        let x = NumPadFloat(1.2)
+        let x = NPFloatConfig(1.2)
 
         XCTAssertEqual("1.2", x.stringValue)
         XCTAssertEqual(1.2, x.value)
@@ -195,7 +195,7 @@ class FloatTests: XCTestCase {
     }
 
     func testDecimalPointBackspace() throws {
-        let x = NumPadFloat(0.0)
+        let x = NPFloatConfig(0.0)
         let r = x.digitAction(.d1)
         XCTAssertTrue(r)
         XCTAssertEqual("1", x.stringValue)
@@ -213,7 +213,7 @@ class FloatTests: XCTestCase {
     }
 
     func testPenny() throws {
-        let x = NumPadFloat(0.0, precision: 2)
+        let x = NPFloatConfig(0.0, precision: 2)
         XCTAssertEqual("0", x.stringValue)
         XCTAssertEqual(0, x.value)
         XCTAssertEqual(0, x.currentPrecision)
@@ -238,7 +238,7 @@ class FloatTests: XCTestCase {
     }
 
     func testIgnoreIfBeyondPrecision() throws {
-        let x = NumPadFloat(0.01, precision: 2)
+        let x = NPFloatConfig(0.01, precision: 2)
 
         XCTAssertEqual("0.01", x.stringValue)
         XCTAssertEqual(0.01, x.value)
@@ -252,25 +252,25 @@ class FloatTests: XCTestCase {
     }
 
     func testInitializeOutsidePrecision() throws {
-        let x = NumPadFloat(10.18, precision: 1)
+        let x = NPFloatConfig(10.18, precision: 1)
         XCTAssertEqual("10.2", x.stringValue)
         XCTAssertEqual(10.2, x.value)
     }
 
     func testInitializeInsideRange() throws {
-        let x = NumPadFloat(10, upperBound: 10)
+        let x = NPFloatConfig(10, upperBound: 10)
         XCTAssertEqual("10", x.stringValue)
         XCTAssertEqual(10, x.value)
     }
 
     func testInitializeOutsideRange() throws {
-        let x = NumPadFloat(10.01, precision: 2, upperBound: 10)
+        let x = NPFloatConfig(10.01, precision: 2, upperBound: 10)
         XCTAssertEqual("10", x.stringValue)
         XCTAssertEqual(10, x.value)
     }
 
     func testIgnoreIfOutsideRange() throws {
-        let x = NumPadFloat(10, precision: 2, upperBound: 10)
+        let x = NPFloatConfig(10, precision: 2, upperBound: 10)
         XCTAssertEqual("10", x.stringValue)
         XCTAssertEqual(10, x.value)
 
@@ -298,10 +298,10 @@ class FloatTests: XCTestCase {
         XCTAssertEqual(10, x.value)
         XCTAssertEqual(2, x.currentPrecision)
     }
-    
+
     // test to reproduce observed failing behavior
     func testAddDecimalOnFloat() throws {
-        let x = NumPadFloat(Float(30), precision: 1, upperBound: Float(500))
+        let x = NPFloatConfig(Float(30), precision: 1, upperBound: Float(500))
         XCTAssertEqual("30", x.stringValue)
         XCTAssertEqual(30, x.value)
 
@@ -315,10 +315,10 @@ class FloatTests: XCTestCase {
         XCTAssertEqual("30.2", x.stringValue)
         XCTAssertEqual(30.2, x.value)
     }
-    
+
     // test to reproduce observed failing behavior
     func testToValue() throws {
-        let x = NumPadFloat(Float(0), precision: 1, upperBound: Float(500))
+        let x = NPFloatConfig(Float(0), precision: 1, upperBound: Float(500))
         XCTAssertEqual(30.2, x.toValue("30.2"))
     }
 }

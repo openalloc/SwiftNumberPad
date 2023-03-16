@@ -1,5 +1,5 @@
 //
-//  NumPadBase.swift
+//  NumberPadEnum.swift
 //
 // Copyright 2023 OpenAlloc LLC
 //
@@ -18,7 +18,7 @@
 
 import Foundation
 
-public enum NumPad: Int {
+public enum NumberPadEnum: Int {
     case d0 = 0
     case d1 = 1
     case d2 = 2
@@ -50,14 +50,4 @@ public enum NumPad: Int {
         public static let defaultHorizontalSpacing: CGFloat = 10
         public static let defaultVerticalSpacing: CGFloat = 10
     #endif
-}
-
-open class NumPadBase<T>: ObservableObject {
-    public var stringValue: String { "" }
-    public var value: T? { nil }
-    public var isClear: Bool { false }
-    public func clearAction() {}
-    public func digitAction(_: NumPad) -> Bool { false }
-    public func backspaceAction() {}
-    public func decimalPointAction() -> Bool { false }
 }

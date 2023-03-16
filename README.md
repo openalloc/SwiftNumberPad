@@ -12,11 +12,56 @@ _SwiftNumberPad_ is part of the [OpenAlloc](https://github.com/openalloc) family
 * Presently targeting .macOS(.v13), .iOS(.v16), .watchOS(.v9)
 * No external dependencies!
 
+## Example
+
+A basic example of Float-based input with a specified precision.
+
+```swift
+struct NumberPadExample: View {
+    @Binding var calories: Float
+
+    init(myValue: Binding<Float>) {
+        _calories = myValue
+        config = .init(myValue.wrappedValue, precision: 1, upperBound: 1000)
+    }
+
+    @ObservedObject var config: NPFloatConfig<Float>
+
+    var body: some View {
+        VStack {
+            Text("\(config.stringValue)")
+
+            NumberPad(config: config, showDecimalPoint: true)
+                .buttonStyle(.bordered)
+        }
+        .font(.largeTitle)
+        .navigationTitle("Calories")
+        .toolbar {
+            ToolbarItem {
+                Button("Save") {
+                    calories = config.value ?? 0
+                }
+            }
+        }
+        .padding()
+    }
+}
+
+struct NumPadExample_Previews: PreviewProvider {
+    static var previews: some View {
+        NavigationStack {
+            NumberPadExample(myValue: .constant(Float(233.6)))
+        }
+    }
+}
+```
+
+[](https://github.com/openalloc/SwiftNumberPad/blob/main/Images/float_demo.png)
+
 ## TODO
 
 Please submit pull requests if you'd like to tackle any of these. Thanks!
 
-* Examples in this README, for both integer and float, with screenshots
 * Usage documentation in this README
 * SwiftUI Preview not reliably working on macOS
 * See if earlier versions of platforms can be supported

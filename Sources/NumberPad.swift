@@ -18,22 +18,24 @@
 
 import SwiftUI
 
-public struct NumberPad<T>: View {
-    @ObservedObject private var selection: NumPadBase<T>
+public struct NumberPad<T>: View
+    where T: Comparable
+{
+    @ObservedObject private var config: NPBaseConfig<T>
     private let horizontalSpacing: CGFloat
     private let verticalSpacing: CGFloat
     private let showDecimalPoint: Bool
-    private let onEntry: (NumPad, Bool) -> Void
+    private let onEntry: (NumberPadEnum, Bool) -> Void
 
     // MARK: - Parameters
 
-    public init(selection: NumPadBase<T>,
-                horizontalSpacing: CGFloat = NumPad.defaultHorizontalSpacing,
-                verticalSpacing: CGFloat = NumPad.defaultVerticalSpacing,
+    public init(config: NPBaseConfig<T>,
+                horizontalSpacing: CGFloat = NumberPadEnum.defaultHorizontalSpacing,
+                verticalSpacing: CGFloat = NumberPadEnum.defaultVerticalSpacing,
                 showDecimalPoint: Bool,
-                onEntry: @escaping (NumPad, Bool) -> Void = { _, _ in })
+                onEntry: @escaping (NumberPadEnum, Bool) -> Void = { _, _ in })
     {
-        self.selection = selection
+        self.config = config
         self.horizontalSpacing = horizontalSpacing
         self.verticalSpacing = verticalSpacing
         self.showDecimalPoint = showDecimalPoint
@@ -45,19 +47,19 @@ public struct NumberPad<T>: View {
     public var body: some View {
         VStack(spacing: verticalSpacing) {
             HStack(spacing: horizontalSpacing) {
-                digit(NumPad.d1)
-                digit(NumPad.d2)
-                digit(NumPad.d3)
+                digit(.d1)
+                digit(.d2)
+                digit(.d3)
             }
             HStack(spacing: horizontalSpacing) {
-                digit(NumPad.d4)
-                digit(NumPad.d5)
-                digit(NumPad.d6)
+                digit(.d4)
+                digit(.d5)
+                digit(.d6)
             }
             HStack(spacing: horizontalSpacing) {
-                digit(NumPad.d7)
-                digit(NumPad.d8)
-                digit(NumPad.d9)
+                digit(.d7)
+                digit(.d8)
+                digit(.d9)
             }
             HStack(spacing: horizontalSpacing) {
                 if showDecimalPoint {
@@ -65,7 +67,7 @@ public struct NumberPad<T>: View {
                 } else {
                     blank
                 }
-                digit(NumPad.d0)
+                digit(.d0)
                 backspace
             }
         }
@@ -77,7 +79,7 @@ public struct NumberPad<T>: View {
             .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 
-    private func digit(_ digit: NumPad) -> some View {
+    private func digit(_ digit: NumberPadEnum) -> some View {
         Button(action: { digitAction(digit) }) {
             Text(digit.toString)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -90,7 +92,7 @@ public struct NumberPad<T>: View {
                 .imageScale(.large)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
-        .disabled(selection.isClear)
+        .disabled(config.isClear)
         .simultaneousGesture(
             LongPressGesture()
                 .onEnded { _ in
@@ -114,37 +116,37 @@ public struct NumberPad<T>: View {
 
     // MARK: - Actions
 
-    private func digitAction(_ digit: NumPad) {
-        let result = selection.digitAction(digit)
+    private func digitAction(_ digit: NumberPadEnum) {
+        let result = config.digitAction(digit)
         onEntry(digit, result)
     }
 
     private func clearAction() {
-        selection.clearAction()
+        config.clearAction()
         onEntry(.clear, true)
     }
 
     private func decimalPointAction() {
-        let result = selection.decimalPointAction()
+        let result = config.decimalPointAction()
         onEntry(.decimalPoint, result)
     }
 
     private func backspaceAction() {
-        selection.backspaceAction()
+        config.backspaceAction()
         onEntry(.backspace, true)
     }
 }
 
 struct NumberPad_Previews: PreviewProvider {
     struct TestHolder: View {
-        @ObservedObject var dValue: NumPadFloat = .init(Float(30.0), precision: 1, upperBound: Float(500.0))
-        @ObservedObject var iValue: NumPadInt = .init(2333, upperBound: 30000)
+        @ObservedObject var floatConfig: NPFloatConfig = .init(Float(30.0), precision: 1, upperBound: Float(700))
+        @ObservedObject var integerConfig: NPIntegerConfig = .init(2333, upperBound: 30000)
         var body: some View {
             VStack {
-                Text("\(dValue.stringValue)")
+                Text("\(floatConfig.stringValue)")
 
                 NumberPad(
-                    selection: dValue,
+                    config: floatConfig,
                     showDecimalPoint: true
                 )
                 .buttonStyle(.bordered)
@@ -153,9 +155,9 @@ struct NumberPad_Previews: PreviewProvider {
                 #if !os(watchOS) // not enough room
                     Divider()
 
-                    Text("\(iValue.stringValue)")
+                    Text("\(integerConfig.stringValue)")
                     NumberPad(
-                        selection: iValue,
+                        config: integerConfig,
                         showDecimalPoint: false
                     )
                     .buttonStyle(.bordered)

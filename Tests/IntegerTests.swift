@@ -22,43 +22,43 @@ import XCTest
 
 class IntegerTests: XCTestCase {
     func testNoArgs() throws {
-        let x = NumPadInt(0)
+        let x = NPIntegerConfig(0)
         XCTAssertEqual("0", x.stringValue)
         XCTAssertEqual(0, x.value)
     }
 
     func testInitZero() throws {
-        let x = NumPadInt(0)
+        let x = NPIntegerConfig(0)
         XCTAssertEqual("0", x.stringValue)
         XCTAssertEqual(0, x.value)
     }
 
     func testInit1() throws {
-        let x = NumPadInt(1)
+        let x = NPIntegerConfig(1)
         XCTAssertEqual("1", x.stringValue)
         XCTAssertEqual(1, x.value)
     }
 
     func testInit10() throws {
-        let x = NumPadInt(10)
+        let x = NPIntegerConfig(10)
         XCTAssertEqual("10", x.stringValue)
         XCTAssertEqual(10, x.value)
     }
 
     func testInitBad() throws {
-        let x = NumPadInt(-1, upperBound: 1)
+        let x = NPIntegerConfig(-1, upperBound: 1)
         XCTAssertEqual("0", x.stringValue)
         XCTAssertEqual(0, x.value)
     }
 
     func testValueLarge() throws {
-        let x = NumPadInt(2_348_938)
+        let x = NPIntegerConfig(2_348_938)
         XCTAssertEqual("2348938", x.stringValue)
         XCTAssertEqual(2_348_938, x.value)
     }
 
     func testBadDigits() throws {
-        let x = NumPadInt(34)
+        let x = NPIntegerConfig(34)
         let r1 = x.digitAction(.backspace)
         XCTAssertFalse(r1)
         XCTAssertEqual("34", x.stringValue)
@@ -71,7 +71,7 @@ class IntegerTests: XCTestCase {
     }
 
     func testAddAndRemoveDigits() throws {
-        let x = NumPadInt(0)
+        let x = NPIntegerConfig(0)
         let r1 = x.digitAction(.d1)
         XCTAssertTrue(r1)
         XCTAssertEqual("1", x.stringValue)
@@ -92,7 +92,7 @@ class IntegerTests: XCTestCase {
     }
 
     func testRedundantZero() throws {
-        let x = NumPadInt(0)
+        let x = NPIntegerConfig(0)
         XCTAssertEqual("0", x.stringValue)
         XCTAssertEqual(0, x.value)
 
@@ -103,7 +103,7 @@ class IntegerTests: XCTestCase {
     }
 
     func testRedundantBackspace() throws {
-        let x = NumPadInt(1)
+        let x = NPIntegerConfig(1)
         XCTAssertEqual("1", x.stringValue)
         XCTAssertEqual(1, x.value)
 
@@ -117,19 +117,19 @@ class IntegerTests: XCTestCase {
     }
 
     func testInitializeInsideRange() throws {
-        let x = NumPadInt(10, upperBound: 10)
+        let x = NPIntegerConfig(10, upperBound: 10)
         XCTAssertEqual("10", x.stringValue)
         XCTAssertEqual(10, x.value)
     }
 
     func testInitializeOutsideRange() throws {
-        let x = NumPadInt(11, upperBound: 10)
+        let x = NPIntegerConfig(11, upperBound: 10)
         XCTAssertEqual("10", x.stringValue)
         XCTAssertEqual(10, x.value)
     }
 
     func testIgnoreIfOutsideRange() throws {
-        let x = NumPadInt(10, upperBound: 10)
+        let x = NPIntegerConfig(10, upperBound: 10)
         XCTAssertEqual("10", x.stringValue)
         XCTAssertEqual(10, x.value)
 
