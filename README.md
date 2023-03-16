@@ -56,7 +56,7 @@ struct NumPadExample_Previews: PreviewProvider {
 }
 ```
 
-![](https://github.com/openalloc/SwiftNumberPad/blob/main/Images/float_demo.png | width=100)
+![](https://github.com/openalloc/SwiftNumberPad/blob/main/Images/float_demo.png | width=178)
 
 ## TODO
 
