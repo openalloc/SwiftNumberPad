@@ -6,6 +6,8 @@ Available as an open source library to be incorporated in SwiftUI apps.
 
 _SwiftNumberPad_ is part of the [OpenAlloc](https://github.com/openalloc) family of open source Swift software tools.
 
+<img src="https://github.com/openalloc/SwiftNumberPad/blob/main/Images/float_demo.png" width="178" height="350">
+
 ## Features
 
 * Support for both integer and floating point types
@@ -56,7 +58,6 @@ struct NumPadExample_Previews: PreviewProvider {
 }
 ```
 
-<img src="https://github.com/openalloc/SwiftNumberPad/blob/main/Images/float_demo.png" width="178" height="350">
 
 ## TODO
 
