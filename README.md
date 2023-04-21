@@ -10,7 +10,7 @@ _SwiftNumberPad_ is part of the [OpenAlloc](https://github.com/openalloc) family
 
 ## Features
 
-* Support for both integer and floating point types
+* Support for integer, floating point, and Decimal types
 * Presently targeting .macOS(.v13), .iOS(.v16), .watchOS(.v9)
 * No external dependencies!
 
@@ -67,27 +67,13 @@ Please submit pull requests if you'd like to tackle any of these. Thanks!
 * SwiftUI Preview not reliably working on macOS
 * See if earlier versions of platforms can be supported
 * Support for negative values
-* Support for Decimal input
 
 ## See Also
 
-* [SwiftSideways](https://github.com/openalloc/SwiftSideways) - multi-platform SwiftUI component for the horizontal scrolling of tabular data in compact areas
-* [SwiftDetailer](https://github.com/openalloc/SwiftDetailer) - multi-platform SwiftUI component for editing fielded data
-* [SwiftDetailerMenu](https://github.com/openalloc/SwiftDetailerMenu) - optional menu support for _SwiftDetailer_
-* [SwiftCompactor](https://github.com/openalloc/SwiftCompactor) - formatters for the concise display of Numbers, Currency, and Time Intervals
-* [SwiftModifiedDietz](https://github.com/openalloc/SwiftModifiedDietz) - A tool for calculating portfolio performance using the Modified Dietz method
-* [SwiftNiceScale](https://github.com/openalloc/SwiftNiceScale) - generate 'nice' numbers for label ticks over a range, such as for y-axis on a chart
-* [SwiftRegressor](https://github.com/openalloc/SwiftRegressor) - a linear regression tool that’s flexible and easy to use
-* [SwiftSeriesResampler](https://github.com/openalloc/SwiftSeriesResampler) - transform a series of coordinate values into a new series with uniform intervals
-* [SwiftSimpleTree](https://github.com/openalloc/SwiftSimpleTree) - a nested data structure that’s flexible and easy to use
+This library is a member of the _OpenAlloc Project_.
 
-And open source apps using this library (by the same author):
-
-* [Gym Routine Tracker](https://open-trackers.github.io/grt/) - minimalist workout tracker, for the Apple Watch, iPhone, and iPad
-* [Daily Calorie Tracker](https://open-trackers.github.io/dct/) - minimalist calorie tracker, for the Apple Watch, iPhone, and iPad
-
-* [FlowAllocator](https://openalloc.github.io/FlowAllocator/index.html) - portfolio rebalancing tool for macOS
-* [FlowWorth](https://openalloc.github.io/FlowWorth/index.html) - a new portfolio performance and valuation tracking tool for macOS
+* [_OpenAlloc_](https://openalloc.github.io) - product website for all the _OpenAlloc_ apps and libraries
+* [_OpenAlloc Project_](https://github.com/openalloc) - Github site for the development project, including full source code
 
 ## License
 
