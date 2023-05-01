@@ -18,9 +18,7 @@
 
 import Foundation
 
-
-public final class NPDecimalConfig: NPBaseConfig<Decimal>
-{
+public final class NPDecimalConfig: NPBaseConfig<Decimal> {
     // MARK: - Parameters
 
     public let precision: Int
